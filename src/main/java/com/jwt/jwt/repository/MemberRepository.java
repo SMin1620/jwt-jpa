@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -43,4 +44,13 @@ public class MemberRepository {
                 .getResultList();
     }
 
+
+    // 로그인 이메일 조회
+    public Optional<Member> findOneEmail(String email) {
+        return em.createQuery("select m from Member m where m.email = :email", Member.class)
+                .setParameter("email", email)
+                .getResultList()
+                .stream()
+                .findAny();
+    }
 }

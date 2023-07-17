@@ -48,4 +48,8 @@ public class Member {
         return member;
     }
 
+    // 비밀번호 검사 로직
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
 }

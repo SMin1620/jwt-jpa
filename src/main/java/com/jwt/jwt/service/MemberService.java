@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,15 +35,6 @@ public class MemberService {
 
         return member;
     }
-//    @Transactional
-//    public Long register(MemberReqDto requestDto) {
-//
-//        validateDuplicateMember(requestDto);
-//        Member member = requestDto.toEntity();
-//
-//        memberRepository.save(member);
-//        return member.getId();
-//    }
 
 
     // 회원 가입 :: 사용자 중복 검사, 닉네임 중복 검사
@@ -60,6 +52,28 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
         }
 
+    }
+
+    // 로그인
+    public Member login(String email, String password) {
+        // 이메일 조회
+        Optional<Member> findMember = memberRepository.findOneEmail(email);
+
+        if(!findMember.orElseThrow(()->new IllegalStateException("해당 이메일이 존재하지 않습니다.")).checkPassword(password)){
+            throw new IllegalStateException("이메일과 비밀번호가 일치하지 않습니다.");
+        }
+        return findMember.get();
+
+//        if (findMember.isEmpty()) {
+//            throw new IllegalStateException("이메일이 존재하지 않습니다.");
+//        }
+//
+//        // 비밀번호 체크
+//        if (! findMember.get().checkPassword(password)) {
+//            throw new IllegalStateException("이메일과 비밀번호가 일치하지 않습니다.");
+//        }
+//
+//        return findMember.get();
     }
 
 
