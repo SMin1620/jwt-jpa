@@ -1,7 +1,6 @@
 package com.jwt.jwt.repository;
 
-import com.jwt.jwt.model.Member;
-import jakarta.persistence.Entity;
+import com.jwt.jwt.domain.member.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

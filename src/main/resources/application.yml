@@ -26,10 +26,10 @@ spring:
 
   application:
     name: spring-boot-admin-test
-    security:
-      user:
-        name: admin
-        password: admin
+#    security:
+#      user:
+#        name: "admin"
+#        password: "admin"
 
 logging:
   level:
@@ -40,3 +40,4 @@ jwt:
   secret: studyjwtstudyjwtstudyjwt
   access-token-expiration-sec: 1800
   refresh-token-expiration-sec: 1209600
+

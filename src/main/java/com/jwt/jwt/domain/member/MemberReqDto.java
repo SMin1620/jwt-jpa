@@ -1,44 +1,30 @@
-package com.jwt.jwt.dto;
+package com.jwt.jwt.domain.member;
 
-import com.jwt.jwt.model.Member;
-import com.jwt.jwt.model.Role;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
-import lombok.*;
-
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Tag(name = "회원 요청 DTO")
 public class MemberReqDto {
 
-
     @NotEmpty(message = "이메일은 필수 입력입니다.")
-    @Pattern(regexp = "^(?:\\w+\\.?)*\\w+@(?:\\w+\\.)+\\w+$", message = "이메일 형식이 올바르지 않습니다.")
+    @Pattern(regexp = "(?:\\w+\\.?)*\\w+@(?:\\w+\\.)+\\w+$", message = "이메일 형식이 올바르지 않습니다.")
+    @Schema(description = "email", defaultValue = "email@email.com")
     private String email;
 
     @NotEmpty(message = "비밀번호는 필수 입력입니다.")
     @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{4,16}", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
+    @Schema(description = "password", defaultValue = "qwe123@")
     private String password;
 
     @NotEmpty(message = "닉네임는 필수 입력입니다.")
     @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$", message = "닉네임은 특수문자를 제외한 2~10자리여야 합니다.")
     private String nickName;
-
-    /* DTO -> Entity */
-    public Member toEntity() {
-        return Member.builder()
-                .email(email)
-                .password(password)
-                .nickName(nickName)
-                .role(Role.USER)
-                .memberDate(LocalDateTime.now())
-                .build();
-    }
-
-
-
-
 }
