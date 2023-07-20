@@ -1,4 +1,4 @@
-package com.jwt.jwt.domain.member;
+package com.jwt.jwt.common;
 
 public enum Role {
     USER, ADMIN
