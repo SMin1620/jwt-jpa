@@ -6,6 +6,7 @@ import com.jwt.jwt.member.dto.register.RegisterReqDto;
 import com.jwt.jwt.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public class MemberController {
     @Operation(summary = "회원 가입")
     @PostMapping("/register")
     public BaseResponse register(
-            @RequestBody RegisterReqDto request
+            @RequestBody @Valid RegisterReqDto request
     ) {
         return BaseResponse.success(memberService.register(request));
     }
@@ -31,7 +32,7 @@ public class MemberController {
     @Operation(summary = "로그인")
     @PostMapping("/login")
     public BaseResponse login(
-            @RequestBody LoginReqDto request
+            @RequestBody @Valid LoginReqDto request
     ) {
         return BaseResponse.success(memberService.login(request));
     }
