@@ -1,5 +1,6 @@
 package com.jwt.jwt.member.service;
 
+import com.jwt.jwt.authentication.TokenProvider;
 import com.jwt.jwt.member.dto.login.LoginReqDto;
 import com.jwt.jwt.member.dto.login.LoginResDto;
 import com.jwt.jwt.member.dto.register.RegisterReqDto;
@@ -21,6 +22,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
 
 
     /**
@@ -50,7 +52,9 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(request.getEmail());
 
         if (member.isPresent() && passwordEncoder.matches(request.getPassword(), member.get().getPassword())) {
-            return LoginResDto.fromDto(member.get());
+            member.get().setRefreshToken(tokenProvider.createRefreshToken(member.get()));
+            System.out.println("REF TOKEN : " + member.get().getRefreshToken());
+            return LoginResDto.fromDto(member.get(), tokenProvider);
         }
         else {
             throw new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다.");

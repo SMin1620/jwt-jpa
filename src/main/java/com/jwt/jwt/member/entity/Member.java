@@ -40,6 +40,9 @@ public class Member {
 
     private LocalDateTime updateAt;
 
+    // 리프레시 토큰
+    private String refreshToken;
+
 
     /**
      * 회원 가입 로직
@@ -58,4 +61,12 @@ public class Member {
     /**
      * 회원가입 :: 비밀번호 암호화 적용
      */
+
+
+    /**
+     * 리프레시 토큰
+     */
+    public void setRefreshToken(String refreshToken) { // 추가!
+        this.refreshToken = refreshToken;
+    }
 }
